@@ -128,4 +128,4 @@ Branch 'master' set up to track remote branch 'master' from 'origin'.
 
 origin 원격 저장소에 push 하게 되며, github에서 확인할 수 있다.
 
-이후 작업 과정에서는 add -> commit 이력을 남기고 push로 업로드 하면 된다.![새로고침 하고 새로운거 저장하는 과정](images/새로고침 하고 새로운거 저장하는 과정.PNG)
+이후 작업 과정에서는 add -> commit 이력을 남기고 push로 업로드 하면 된다.![새로고침 하고 새로운거 저장하는 과정](images/새로고침 하고 새로운거 저장하는 과정-1575535640242.PNG)
