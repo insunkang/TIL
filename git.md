@@ -84,3 +84,19 @@ Date:   Thu Dec 5 16:51:58 2019 +0900
 
 
 
+## 2. 원격 저장소(remote repository) 활용
+
+> 원격 저장소는 다양한 서비스를 통해 제공 받을수 있다.
+>
+> github, gitlab, bitbucket
+
+### 1. 원격 저장소 등록
+
+```bash
+$ git remote add origin https~
+```
+
+
+
+
+
