@@ -96,7 +96,36 @@ Date:   Thu Dec 5 16:51:58 2019 +0900
 $ git remote add origin https~
 ```
 
+원격 저장소(remote)를 origin 이라는 이름으로 해당 url로 설정한다.
 
+등록된 원격 저장소는 아래의 명령어로 확인할 수 있다.
 
+등록은 한번만 실행하면 된다.
 
+```bash
+![새로고침 하고 새로운거 저장하는 과정](../새로고침 하고 새로운거 저장하는 과정.PNG$ git remote -v
+origin  https://github.com/insunkang/TIL.git (fetch)
+origin  https://github.com/insunkang/TIL.git (push)
 
+```
+
+### 2.원격 저장소 push
+
+```bash
+$ git push origin master
+Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (9/9), done.
+Writing objects: 100% (10/10), 62.51 KiB | 10.42 MiB/s, done.
+Total 10 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), done.
+To https://github.com/insunkang/TIL.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+
+```
+
+origin 원격 저장소에 push 하게 되며, github에서 확인할 수 있다.
+
+이후 작업 과정에서는 add -> commit 이력을 남기고 push로 업로드 하면 된다.![새로고침 하고 새로운거 저장하는 과정](images/새로고침 하고 새로운거 저장하는 과정.PNG)
