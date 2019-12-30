@@ -1,0 +1,85 @@
+apache.org
+
+맨밑 - tomcat
+
+Binary Distributions
+
+tar = linux
+
+설치
+host manager
+example 
+모두 체크
+
+http/1.1connector port 8080 -> oracle이 사용중
+
+-> 8088로 바꿔줌
+
+user name
+password -> 설정
+
+next
+
+jre 1.8  ......-> 다른게 설치 되있을때 잘 선택해야함
+
+next
+
+체크 해제
+
+
+
+==================
+program files -> apache software Foundation -> tomcat 9.0
+
+==================
+
+https://  -> 보안이 적용된 프로토콜
+
+http://127.0.0.1:8088   -> 페이지에 연결할수 없음 (서버를 키지 않아서)
+
+시작 -> apache tomcat 9.0 -> monitor tomcat -> 오른쪽 밑 확장 -> start service ->
+icon 바뀜(초록색 실행 모양) 
+-> http://127.0.0.1:8088
+
+====================
+C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps
+
+===================
+editplus<관리자권한>
+C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\ROOT
+index.jsp
+==================
+
+<docs webapplication 폴더 안의 index.html의 실행결과를 확인>
+http://127.0.0.1:8088/docs/index.html 
+
+http://127.0.0.1:8088/examples/index.html
+
+http://127.0.0.1:8088/myhome/index.jsp
+
+http://127.0.0.1:8088/mypro/index.jsp --> 안됌 ( 톰캣 인식 위치에 있지 않아서)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
