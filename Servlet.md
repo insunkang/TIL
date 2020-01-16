@@ -2,7 +2,7 @@ Servlet & Jsp
 
 # Servlet
 
-![image-20200114093654691](images/image-20200114093654691.png)
+![folder](images/folder.PNG)
 
 Servlet : web platform에서만 사용되는 기술
 
@@ -187,12 +187,12 @@ Servlet : web platform에서만 사용되는 기술
 
 3. 클라이언트가 전달하는 요청 메시지에서 클라이언트의 입력 정보를 추출하기
 
-    1) 요청
-   	 [요청객체]
-   	 ServletRequest
-   				^
-   				|
-    HttpServletRequest
+   1) 요청
+      	 [요청객체]
+      	 ServletRequest
+      				^
+      				|
+   HttpServletRequest
 
    => 클라이언트가 요청 메시지를 서버로 전달하면 여러가지 클라이언트 정보가
    	 (클라이언트가 입력한 데이터, 쿠키, 세션정보, 클라이언트의 ip, port...) 서버로 전달된다.
@@ -232,6 +232,34 @@ Servlet : web platform에서만 사용되는 기술
    ​		=> CheckBox, List에서 복수 개 선택, 임의로 동일한 이름을 정의해서 넘긴 데이터
    ​		리턴타입 : String[]로 파라미터의 값들
    ​		매개변수 : String으로 파라미터명을 정의
+
+     3) 응답
+
+   ​	  클라이언트가 요청한 내용을 처리하고 처리결과를 웹 페이지에 출력되도록 응답해야한다.
+   ​	  서블릿에서는 응답을 할 수 있도록 출력스트림을 지원한다.
+
+   ​	  ① 응답하는 문서의 타입과 인코딩방식을 정의 
+
+   ​			res.setContentType("응답형식(MIME타입);문자셋")
+   ​			res.setContentType("text/html;charset=euc-kr")
+
+   ​	  ② 응답객체에서 출력 스트림 얻기
+   ​	 	 ServletResponse객체의 getWriter를 이용해서 리턴받는다.
+   ​		  PrintWriter pw = response.getWriter()
+
+    	 ③ 메소드의 매개변수로 응답할 내용을 명시한다.
+   		  => 실제로 불가능(추후에 개선된 내용을)
+    		 => Ajax용
+
+   ​    	  pw.메소드("출력할 내용");
+   ​						(---------------------)
+   ​							html태그
+
+      4) 응답
+     	 200 : 정상요청
+          404 : 요청한 url에 맞는 파일을 찾을 수 없습니다.
+    	  405 : 요청방식에 따라 실행되는 메소드가 없다.
+   				 => 요청방식과 메소드명 확인
 
 4. DB연동
 
