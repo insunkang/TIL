@@ -261,6 +261,12 @@ Servlet : web platform에서만 사용되는 기술
     	  405 : 요청방식에 따라 실행되는 메소드가 없다.
    				 => 요청방식과 메소드명 확인
 
+   <<요청재지정>>
+
+   	1. 리다이렉트 (sendRedirect)
+    	2. forward
+    	3. include
+
 4. DB연동
 
 
