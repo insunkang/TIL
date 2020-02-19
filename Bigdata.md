@@ -14,6 +14,8 @@ java.sun.com/j2se
 
 ### 200213
 
+hostnamectl
+
 rpm  -Uvh jdk-8u231-linux-x64.pm
 
 scp /root/jdk-8u231-linux-x64.rpm root@hadoop02:/root/
@@ -34,9 +36,24 @@ su hadoop
 
 cd ~
 
+![image-20200219095101533](images/image-20200219095101533.png)
+
+#은 home directory
+$는 root directory
+
+![image-20200219102101088](images/image-20200219102101088.png)
+
+pwd 는 present working direcrtory checking 
+
+
+
+
+
 ls  -> hadoop home 안에 hadoop tar.gz 파일 확인
 
 -> 권한이 hadoop 으로 바뀐거 확인 가능	
+
+
 
 
 
@@ -163,3 +180,17 @@ build.xml -> 명령어를 만들어 놓은 파일 (ant 파일)
 [hadoop@hadoop01 ~]$ ./hadoop-1.2.1/bin/hadoop jar multi-hadoop-examples.jar hdfs.exam.HDFSExam01 output.txt hellohadoop
 
 => jar파일을 실행하는 명령어 (경로를 안줘서 user 폴더가 생김)
+
+![image-20200219142408736](images/image-20200219142408736.png)
+
+![image-20200219142510065](images/image-20200219142510065.png)
+
+### mapper
+
+![image-20200219164921593](images/image-20200219164921593.png)
+
+
+
+![image-20200219164945330](images/image-20200219164945330.png)
+
+이렇게 추가
