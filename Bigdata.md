@@ -194,3 +194,28 @@ build.xml -> 명령어를 만들어 놓은 파일 (ant 파일)
 ![image-20200219164945330](images/image-20200219164945330.png)
 
 이렇게 추가
+
+### 200220
+
+README.txt 파일 복사 생성
+
+![image-20200220102847321](images/image-20200220102847321.png)
+
+### 200221
+
+- MultiplOutputs
+
+  => 한 개의 입력 데이터를 이용해서 여러 개의 output을 만들고 싶은 경우 사용
+  Mapper : GenericOptionParser작업할 때와 동일하게 map메소드를 구성하며 보통 구분할 수 있도록 key에 각 상황별로 문자열만 추가해 준다.
+
+  Reducer : Mapper에서 넘겨준 데이터에서 구분자를 기준으로 분리해서 합산 - 개별 output이 생성될 수 있도록 처리
+
+   - setup : Reducer 객체가 처음 실행될때 한 번 호출되는 메소드
+     			MultipleOutputs객체를 생성
+   - reduce : 각각의 상황별로 write가 호출될 수 있도록 처리
+                   (up, equal, down)
+   - cleanup : Reducer의 작업이 종료될때 한 번 호출되는 메소드
+                     MultipleOutputs객체를 해제(반드시처리)
+
+  Driver : MultipleOutputs로 출력될 경로를 Path에 설정 prefix로 구분문자열을 정의
+
