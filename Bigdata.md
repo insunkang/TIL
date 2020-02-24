@@ -219,3 +219,83 @@ README.txt 파일 복사 생성
 
   Driver : MultipleOutputs로 출력될 경로를 Path에 설정 prefix로 구분문자열을 정의
 
+### 200224
+
+![image-20200224101137957](images/image-20200224101137957.png)
+
+다 변경 해주기
+
+![image-20200224102330346](images/image-20200224102330346.png)
+
+[hadoop@hadoop01 hadoop-1.2.1]$ scp /home/hadoop/hadoop-1.2.1/conf/* hadoop@hadoop04:/home/hadoop/hadoop-1.2.1/conf/
+
+copy 해주기
+
+<img src="images/image-20200224103735639.png" alt="image-20200224103735639"  />
+
+sts 로 옮겨주기
+
+![image-20200224110918697](images/image-20200224110918697.png)
+
+sts로 옮겨서 run configuration 등 실행 후 오류 고치기 위한 수정 후 모든 머신에 복사 후 실행
+
+![image-20200224112351106](images/image-20200224112351106.png)
+
+오류 뜨기 때문에 jar로 export
+
+#### <정규표현식>
+
+다른 프로그램에서도 똑같이 적용되는 규칙
+
+텍스트 안에서 특정 형식의 문자열을 추출하거나 검색할때 사용하는 특수문자로 만들어진 패턴
+
+1. 자바 API
+
+   1.  String 클래스의 matches메소드 : 매개변수로 전달한 정규 표현식에 일치하는 문자열이 있는지를 boolean으로 리턴
+
+   2.  java.util.regex 패키지의 클래스들을 활용
+
+      - Pattern 클래스 : 패턴을 정의할때 사용
+
+        ​			CASE_INTENSITIVE : 대소문자 적용하지 않는다는 의미
+
+      - Matcher 클래스 : 패턴과 일치하는 문자열을 관리하는 클래스
+
+        ​	find() : 패턴에 만족하는 문자열이 있는지 찾기 (true | false 리턴)
+
+        ​	start() : 매칭되는 패턴과 일치하는 문자열의 start index	
+
+        ​	end() : 패턴과 일치하는 문자열의 end index +1
+
+        ​	group() : 패턴과 일치하는 문자열을 리턴 (일치하는 문자 추출)
+
+2. Pattern기호
+
+   1.  기본기호
+
+      ^
+
+      $
+
+      .
+
+      |
+
+      []
+
+      ()  : 그룹으로 묶을 경우 사용
+
+   2.  수량관련기호
+
+      *:  *앞의 패턴문자가 0이거나 1이거나 여러 개 잇거나
+
+      +: +앞의 패턴문자가 1이거나 여러 개 있거나
+
+      ?: ?앞의 패턴문자가 없거나 1이거나
+
+      .{n}  : .은 임의의 한 문자를 의미 n은 글자수를 의미
+      		 어떤 문자이거나 n개의 문자
+
+      xxxx{1,3} : 1이상 3이하 (x는 패턴을 의미)
+
+      xxxx{3, }  : 3이상 
