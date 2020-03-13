@@ -299,3 +299,138 @@ sts로 옮겨서 run configuration 등 실행 후 오류 고치기 위한 수정
       xxxx{1,3} : 1이상 3이하 (x는 패턴을 의미)
 
       xxxx{3, }  : 3이상 
+
+
+
+### 200309
+
+#### <정렬>
+
+ 1. 보조 정렬
+
+    1) 정렬하려고 하는 기준을 정의한 사용자가 키 클래스를 작성
+
+    ​	=> 복합키
+
+    2) Mapper 클래스의 map메소드에서 사용자 키가 outputkey로 출력될 수 있도록 정의
+
+    3) Reduce태스크에 분배할 수 있는 Partitioner를 정의
+
+    ​	=> 같은 키를 갖고 있는 mapper의 출력데이터를 같은 리듀스 태스크로 보내기 위해서 해시코드를 이용해서 계산
+
+    4) Reduce태스크로 보내기 전에 같은 그룹으로 그룹핑을 할 수 있도록 객체를 정의
+
+    ​	=> 그룹키 비교기
+
+    ​	=> ex) air데이터에서 같은 년도별로 데이터를 분류
+
+    5) 4번에서 같은 그룹으로 정의한 데이터 내부에서 두 번째 기준을 적용해서 비교할 수 있도록 객체를 정의
+
+    ​	=> 1번에서 정의한 복합키의 기준으로 데이토를 정렬하기 위한 객체
+
+    ​	=> 복합키 비교기
+
+### 200312
+
+#### sqoop
+
+<img src="images/image-20200312105038603.png" alt="image-20200312105038603" style="zoom:50%;" />
+
+<img src="images/image-20200312105305525.png" alt="image-20200312105305525"  />
+
+<img src="images/image-20200312111216465.png" alt="image-20200312111216465" style="zoom:50%;" />
+
+remote의 sqoop home의 lib에 ojdbc6 넣어주기
+
+![image-20200312112020518](image-20200312112020518.png)
+
+
+
+### Flume<200315>
+
+### flume 
+
+- 데이터를 추출하기 위해 사용되는 프로그램
+
+  시스템 로그, 웹 서버의 로그 , 클릭로그, 보안로그 .. 비정형 데이터를 HDFS에 적재하기 위해 사용하는 프로그램
+
+  대규모의 로그데이터가 발생하면 효율적으로 수집하고 저장하기 위해 관리
+
+- flume, chukwa, scribe, fluentd, splunk
+
+![image-20200313101548205](images/image-20200313101548205.png)
+
+![image-20200313104308174](images/image-20200313104308174.png)
+
+![image-20200313104336838](images/image-20200313104336838.png)
+
+![image-20200313104211675](images/image-20200313104211675.png)
+
+3. flume-env.sh rename하고 정보 등록
+   - jdk홈디렉토리
+   - hadoop홈디렉토리
+
+![image-20200313111103601](images/image-20200313111103601.png)
+
+4. flume설정파일에 등록
+   - flume-conf.properties.template을 rename해서 xxxx.properties
+   - flume agent의 source,channel,sink에 대한 정보를 등록
+
+![image-20200313111729127](images/image-20200313111729127.png)
+
+[Flume의 구성요소]
+
+flume의 실행 중인 프로세스를 agent라 부르며 source,channel,sink로 구성
+
+1. source
+
+   => 데이터가 유입되는 지정(어떤 방식으로 데이터가 유입되는지 type으로 명시)
+
+   agent명.sources.source명.type=값
+
+   1) type
+
+    - netcat : telnet을 통해서 터미널로 들어오는 입력데이터
+
+      ​			(bind : 접속IP, port : 접속할 port)
+
+    - spoolDir : 특정 폴더에 저장된 파일
+
+      ​			(spoolDir : 폴더명)
+
+2. channel
+
+   => 데이터를 보관하는 곳(source와 sink사이의 Queue)
+
+3. sink
+
+   => 데이터를 내보내는 곳(어떤 방식으로 내보낼지 정의)
+
+   1) type
+
+    - logger : flume 서버 콘솔에 출력이 전달
+
+      ​			 flume을 실행할때 -Dflume.root.logger=INFO,console을 추가
+
+   - file_roll : file을 읽어서 가져오는 경우
+
+     ​			 (directory : 읽어온 파일을 저장할 output폴더를 명시)
+
+[Flume의 실행방법]
+
+[hadoop@hadoop01 apache-flume-1.6.0-bin]$ ./bin/flume-ng agent --conf conf --conf-file ./conf/console.properties --name myConsole -Dflume.root.logger=INFO,console
+							 \----------------------------------------------
+										source가 telnet으로 입력하는 데이터인 경우
+
+실행 명령어 : ./bin/flume-ng agent 
+
+옵션
+
+​	--conf : 설정파일이 저장된 폴더명(-c)
+
+​	--conf-file : 설정파일명(-f)
+
+​	--name : agent의 이름(-n)
+
+​	-Dflume.root.logger=INFO,console : flume의 로그창에 기록
+
