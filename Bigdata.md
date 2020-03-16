@@ -434,3 +434,100 @@ flume의 실행 중인 프로세스를 agent라 부르며 source,channel,sink로
 
 ​	-Dflume.root.logger=INFO,console : flume의 로그창에 기록
 
+![image-20200314090701772](images/image-20200314090701772.png)
+
+![image-20200314091156425](images/image-20200314091156425.png)
+
+### 200314
+
+2번 머신을 WAS로 잡아주려고 2번 머신을 가서 apache를 설치해서 압축풀기 tomcat
+
+```linux
+[hadoop@hadoop02 ~]$ tar -zxvf apache-tomcat-9.0.31.tar.gz 
+
+```
+
+![image-20200314133154199](images/image-20200314133154199.png)
+
+.bashrc 파일 수정 해주기
+
+![image-20200314133226054](images/image-20200314133226054.png)
+
+적용하고 파일 들어가서 tomcat 실행 해주기
+
+들어가서 2번머신IP/manager 들어가기 위해 계정 비번설정 해주기
+
+![image-20200314133256554](images/image-20200314133256554.png)
+
+![image-20200314133320440](images/image-20200314133320440.png)
+
+외부 에서 실행 할수 있게 설정 변경 해주기
+
+![image-20200314133621036](images/image-20200314133621036.png)
+
+배포 하기 위해 WAR파일로 만들어줘서 배포
+
+![image-20200314134128507](images/image-20200314134128507.png)
+
+![image-20200314134312587](images/image-20200314134312587.png)
+
+파일 선택하고 배치 
+
+
+
+![image-20200314134639793](images/image-20200314134639793.png)
+
+잘 연결된것을 볼 수 있다
+
+![image-20200314141204744](images/image-20200314141204744.png)
+
+홈페이지에서 활동을 했기 때문에 로그가 생성된 것을 볼 수 있다.
+
+#### avro
+
+![image-20200314174810046](images/image-20200314174810046.png)
+
+![image-20200314174833556](images/image-20200314174833556.png)
+
+![image-20200314174900057](images/image-20200314174900057.png)
+
+
+
+[테스트]
+
+- 하둡머신의 flume실행
+  ![image-20200316090944466](images/image-20200316090944466.png)
+
+  [hadoop@hadoop01 apache-flume-1.6.0-bin]$ ./bin/flume-ng agent -c conf/ -f ./conf/avrohdfs.properties -n myhdfs 
+
+- was머신의 flume실행
+
+  ![image-20200316091116527](images/image-20200316091116527.png)
+
+  [hadoop@hadoop03 apache-flume-1.6.0-bin]$ ./bin/flume-ng agent -c conf/ -f ./conf/tomcatavro.properties -n mytomcat
+
+  
+
+- flume_input폴더에 로그파일 copy
+
+  ![image-20200316091241447](images/image-20200316091241447.png)
+
+  ##  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
