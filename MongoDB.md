@@ -226,3 +226,197 @@ db.score.update({id:"jang"},{$pullAll:{"info.city":["가평","군산"]}});
 
 ![image-20200316175311980](images/image-20200316175311980.png)
 
+![image-20200317094336084](images/image-20200317094336084.png)
+
+.pretty(); 쓰면 이쁘게 나옴
+
+5. mongoDB에 저장된 
+
+   ![image-20200317094950478](images/image-20200317094950478.png)
+
+   ![image-20200317095007810](images/image-20200317095007810.png)
+
+   ![image-20200317095100117](images/image-20200317095100117.png)
+
+score의  모든 document에  num,1000을 추가하기
+
+![image-20200317101549705](images/image-20200317101549705.png)
+
+1) find 
+    db.컬렉션명.find(조건, 조회할 필드에 대한 명시)
+
+      - db.컬렉션명.find({})와 동일
+      - :{}안에 아무것도 없으면 전체 데이터 조회
+      - 조건, 조회할 필드에 대한 명시 모두 json
+   - 조회할 필드의 정보를 명시할 수 있다.
+      형식: {필드명: 1..} : 화면에 표시하고 싶은 필드
+                {필드명: 0..} : 명시한 필드가 조회되지 않도록 처리
+
+[조건]
+$lt : <
+$gt : >
+$lte : <=
+$gte : >=
+$or : 여러 필드를 이용해서 같이 비교 가능
+$and 
+$in - 하나의 필드에서만 비교
+$nin - not in 
+             $in으로 정의한 조건을 제외한 document를 조회
+
+- addr이 인천인 데이터 : id, name, dept, addr 
+  db.score.find({addr:"인천"},
+                        {id:1,name:1,dept:1,addr:1,_id:0});
+- score컬렉션에서 java가 90점 이상인 document조회
+  id,name,dept,java만 출력
+  db.score.find({java: {$gte: 90}},
+                               {id:1,name:1,dept:1,java:1,_id:0});
+- dept가 인사이거나 addr이 인천인 데이터 조회
+  db.score.find({$or:[{dept:"인사"},
+                                  {addr:"인천"}]});
+- id가 song, kang, hong인 데이터 조회
+  db.score.find({$or:[{id:"song"},
+                                  {id:"hong"} ,
+                                   {id:"kang"}]});
+  db.score.find({id:{$in:["song","hong","kang"]}});
+
+2) 조회 메소드
+
+      - findOne() : 첫 번째 document만 리턴
+      - find() : 모든  document리턴
+      - count() : 행의 갯수를 리턴
+   - sort({필드명:sort옵션}) : 정렬
+                                             1 = > 오름차순
+                                            -1 = > 내림차순
+   - limit(숫자) : 숫자만큼의 document만 출력
+   - skip(숫자) : 숫자만큼의 document를 skip하고 조회
+
+![image-20200317111459376](images/image-20200317111459376.png)
+
+3) 정규 표현식을 적용
+ db.컬렉션명.find({조건필드명:/정규표현식/옵션})
+
+
+
+[기호]
+| : or
+^ :  ^뒤의 문자로 시작하는지 체크
+[ ] : 영문자 하나는 한 글자를 의미하고 []로 묶으면 여러 글자를 표현
+	  [a-i] a에서 i 까지의 모든 영문자
+
+[옵션]
+i : 대소문자 구분없이 조회 가능
+
+- id가 kim과 park 인 document조회
+  db.score.find({id:/kim|park/})
+  db.score.find({id:/kim|park/i})
+- id가 k로 시작하는 document조회
+  db.score.find({id:/^k/})
+- [a-i]까지 영문이 있는 id를 조회
+  db.score.find({id:/[a-i]/})
+- id가 [k-p]로 시작하는 document조화
+  db.score.find({id:/^[k-p]/})  k,l,m,n,o,p
+- id에 k와p가 있는 document조회
+  db.score.find({id:/[Kp]/})
+
+6. mongoDB에 저장된 데이터 삭제하기 -remove()
+   - 조건을 정의하는 방법은 find()나 update()와 동일
+     db.score.remove({servlet:{$lt:80}});
+
+exists ->
+
+![image-20200317141549462](images/image-20200317141549462.png)
+
+7. Aggregation
+
+   - group by 와 동일개념
+   - 간단한 집계를 구하는 경우 mapreduce를 적용하는 것 보다 간단하게 작업
+   - Pipeline을 내부에서 구현
+     한 연산의 결과가 또 다른 연산의 input데이터로 활용
+     https://docs.mongodb.com/v3.6/aggregation/#aggregation-pipeline 그림 참고
+
+   1) 명령어(RDBMS와 비교)
+
+   - $match : where절, having절
+   - $group : group by
+   - $sort : order by
+   - $avg : avg그룹 함수
+   - $sum : sum그룹함수
+   - $max : max 그룹함수
+
+   [형식]
+   db.컬렉션명.aggregate(aggregate명령어를 정의)
+                                        \--------------------------------
+                                          여러 가지를 적용해야 하는 경우
+                                          배열
+
+   ​		$group:{_id: 그룹으로 표시할 필드명,
+   ​                             연산 결과를 저장할 필드명:{연산함수:값}}
+   ​                                                                                        \------
+   ​                                                                                    숫자나 필드참조
+   ​		$match:{}
+
+   - addr별 인원수
+     db.exam.aggregate([
+                                         {$group:{_id:"$addr"
+                                                               ,num:{$sum:1}}
+                                          }
+                                     ])
+     ![image-20200317144639422](images/image-20200317144639422.png)
+
+   - dept 별 인원수
+     db.exam.aggregate([
+                                        {$group:{_id:"$dept"
+                                                                  ,num:{$sum:1}}}])
+
+   - dept 별 java점수의 평균
+
+     db.exam.aggregate([
+                                        {$group:{_id:"$dept"
+                                                                  ,avg:{$avg:"$java"}}}])
+
+   - dept 별 java점수의 평균 단, addr이 인천인 데이터만 작업 $match를 추갸
+     db.exam.aggregate([
+                                        {$match:{addr:"인천"}},
+                                         {$group:{_id:"$dept",
+                                                          평균:{$avg:"$java"}}
+                                       }]);
+
+   - dept가 인사인 document의 servlet평균 구하기
+     db.exam.aggregate([
+                                     {$match:{dept:"인사"}},
+                                       {$group:{_id:"$dept",
+                                                        평균:{$avg:"$servlet"}}}
+                                     ]);
+
+   - java가 80점이 넘는 사람들의 부서별로 몇명인지 구하기
+     db.exam.aggregate([
+                                      {$match:{java:{$gt:80}}},
+                                               {$group:{_id:"$dept",
+                                                          num:{$sum:1}}}
+              ])
+
+   - java가 80점이 넘는 사람들의 부서별로 몇명인지 구하기, 인원수 내림차순
+
+     db.exam.aggregate([
+                                      {$match:{java:{$gt:80}}},
+                                               {$group:{_id:"$dept",
+                                                          num:{$sum:1}}}
+              ])
+
+   ex)
+   ![image-20200317162246184](images/image-20200317162246184.png)
+
+   - spring for mongoDB 안에 있는 굉장히 편한 library
+
+8. 스프링에 몽고디비 연결하기
+
+![image-20200317163125565](images/image-20200317163125565.png)
+
+spring에 생성![image-20200317163146504](images/image-20200317163146504.png)
+
+![image-20200317163301985](images/image-20200317163301985.png)
+
+![image-20200317164402003](images/image-20200317164402003.png)
+
+![image-20200317170901882](images/image-20200317170901882.png)
+
