@@ -93,7 +93,9 @@ mkdir hadoop-data  임시 디렉토리 생성
 
 corefile 다른 프로그램으로 열기 g editer
 
-<img src="images/image-20200213134231416.png" alt="image-20200213134231416" style="zoom: 33%;" />
+<img src="images/image-20200213134231416.png" alt="image-20200213134231416" style="zoom: 100%;" />
+
+
 
 hdfs gediter로 열고 설정파일 설정해주기
 

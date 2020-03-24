@@ -56,3 +56,8 @@ crawl
 
 ![image-20200321175921413](images/image-20200321175921413.png)
 
+##200323
+
+final_data의 1번 글의 내용을 출력
+
+<img src="images/image-20200323150926119.png" alt="image-20200323150926119"  />
